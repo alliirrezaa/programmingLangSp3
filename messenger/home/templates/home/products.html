@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+<title>Product</title>
+{% block content %}
+<body>
+    <br>
+    <form action="{% url 'home:productss' %}">
+        {% csrf_token %}
+        {{form}}
+        <button class="btn btn-warning" type="submit">search</button>
+    </form><br>
+    {% if exist %}
+        <h2 style="color: green;">Found Results:</h2><br>
+    {% else %}
+        <h2 style="color: red;">Nothing Found!!!</h2><br>
+    {% endif %}
+<div class="row row-cols-2">
+    {% for produc in products %}
+        <div class="container">
+                <div class="card" style="width: 18rem;">
+                    <img style="width:180px;height:180px" src="{{produc.image.url}}"  class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{produc.name}}</h5>
+                            <h6 class="card-text" style="color: green">Price: {{produc.price}}</h6>
+                            <a class="btn btn-primary" href="{% url 'home:product_detail' produc.id %}">
+                                Detail
+                            </a>
+                        </div>
+                </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+{% endblock content %}
